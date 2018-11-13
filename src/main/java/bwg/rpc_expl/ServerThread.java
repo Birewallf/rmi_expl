@@ -13,11 +13,14 @@ import java.util.Calendar;
  * @author ssvs
  */
 class ServerThread extends Thread {
+    private final static int SERVER_PORT = 27003;
+
     private Socket socket;
 
     public static void main(String[] ar) throws IOException {
-        ServerSocket ss = new ServerSocket(27003);
-        System.err.println("Server ready \nPort: 27003");
+        ServerSocket ss = new ServerSocket(SERVER_PORT);
+        System.err.println("Server ready " +
+                           "\nPort: " + SERVER_PORT);
         while (true) {
             new ServerThread(ss.accept());
         }
