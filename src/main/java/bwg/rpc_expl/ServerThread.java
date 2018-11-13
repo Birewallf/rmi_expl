@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * RPM Server
+ * RPC Server
  * @author ssvs
  */
 class ServerThread extends Thread {

@@ -4,7 +4,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 /**
- * RPM Client
+ * RPC Client
  * @author ssvs
  */
 public class Client {
