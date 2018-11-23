@@ -3,7 +3,12 @@ package bwg.rmi_expl;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface Message extends Remote {
+/**
+ * RPI Server
+ * @author ssvs
+ */
+
+public interface MessageInterface extends Remote {
     String getTime() throws RemoteException;
     String getDate() throws RemoteException;
 }

@@ -33,6 +33,10 @@ class ServerThread extends Thread {
 
     public void run() {
         try {
+            if(!socket.getRemoteSocketAddress().toString().startsWith("/127.0.0.1")) {
+                return;
+            }
+
             InputStream is = this.socket.getInputStream();
             OutputStream os = this.socket.getOutputStream();
 

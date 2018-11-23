@@ -1,5 +1,6 @@
 package bwg.rmi_expl;
 
+import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,10 +11,15 @@ import java.util.Calendar;
  * RPI Server
  * @author ssvs
  */
-public class Server implements Message {
+public class Server implements MessageInterface {
+
+    private final static int SERVER_PORT = 27002;
 
     private Server() {}
 
+    /**
+     * функция получения времени
+     */
     public String getTime() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -22,6 +28,10 @@ public class Server implements Message {
         print("Server", "Get Time - " + time);
         return time;
     }
+
+    /**
+     * функция получения даты
+     */
     public String getDate() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -30,17 +40,21 @@ public class Server implements Message {
         print("Server", "Get Time - " + date);
         return date;
     }
+
     public static void main(String args[]) {
         String localhost    = "127.0.0.1";
+        //String localhost    = "10.0.0.63";
         String RMI_HOSTNAME = "java.rmi.server.hostname";
         System.setProperty(RMI_HOSTNAME, localhost);
+        //System.setSecurityManager(new RMISecurityManager());
         try {
             Server obj = new Server();
-            Message stub = (Message) UnicastRemoteObject.exportObject(obj, 0);
+            MessageInterface stub = (MessageInterface) UnicastRemoteObject.exportObject(obj, 0);
 
-            // Bind the remote object's stub in the registry
-            LocateRegistry.createRegistry(27002);
-            Registry registry = LocateRegistry.getRegistry(localhost, 27002);
+            // создание реестра обьектов
+            LocateRegistry.createRegistry(SERVER_PORT);
+            Registry registry = LocateRegistry.getRegistry(localhost, SERVER_PORT);
+            // регистрация обьекта в реестре
             registry.rebind("Messages", stub);
             System.err.println("Server ready");
         } catch (Exception e) {
@@ -50,6 +64,6 @@ public class Server implements Message {
     }
 
     private void print(String tag, String msg) {
-        System.out.print(tag + ":" + msg);
+        System.out.println(tag + ":" + msg);
     }
 }
