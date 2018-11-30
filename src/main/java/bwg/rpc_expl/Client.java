@@ -24,7 +24,7 @@ public class Client {
         System.out.println("server response: " + Sender("sum 5 15"));
 
         //------GET MIN---------------------------------------------------------------
-        System.out.println("server response: " + Sender("min 27 15"));
+        System.out.println("server response: " + Sender("sub 27 15"));
 
         //------GET MUL---------------------------------------------------------------
         System.out.println("server response: " + Sender("mul 5 10"));

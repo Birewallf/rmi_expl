@@ -62,7 +62,7 @@ class ServerThread extends Thread {
                         data = mul(data);
                     } else if (data.startsWith("div")) {
                         data = div(data);
-                    } else if (data.startsWith("min")) {
+                    } else if (data.startsWith("sub")) {
                         data = min(data);
                     } else
                         data = "n/d";

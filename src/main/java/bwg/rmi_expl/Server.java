@@ -42,11 +42,10 @@ public class Server implements MessageInterface {
     }
 
     public static void main(String args[]) {
-        String localhost    = "127.0.0.1";
-        //String localhost    = "10.0.0.63";
+        String localhost    = "10.0.0.63";
         String RMI_HOSTNAME = "java.rmi.server.hostname";
         System.setProperty(RMI_HOSTNAME, localhost);
-        //System.setSecurityManager(new RMISecurityManager());
+        System.setSecurityManager(new RMISecurityManager());
         try {
             Server obj = new Server();
             MessageInterface stub = (MessageInterface) UnicastRemoteObject.exportObject(obj, 0);
@@ -56,6 +55,7 @@ public class Server implements MessageInterface {
             Registry registry = LocateRegistry.getRegistry(localhost, SERVER_PORT);
             // регистрация обьекта в реестре
             registry.rebind("Messages", stub);
+
             System.err.println("Server ready");
         } catch (Exception e) {
             System.err.println("Server exception: " + e.toString());
@@ -65,5 +65,28 @@ public class Server implements MessageInterface {
 
     private void print(String tag, String msg) {
         System.out.println(tag + ":" + msg);
+    }
+
+    public int sum(int a, int b) {
+        System.out.printf("Server: SUM : %d + %d = %d\n", a, b, a + b);
+        return a + b;
+    }
+
+    public int sub(int a, int b) {
+        System.out.printf("Server: SUB : %d - %d = %d\n", a, b, a - b);
+        return a - b;
+    }
+    public double div(int a, int b) {
+        try {
+            System.out.printf("Server: DIV : %d / %d = %f\n", a, b, (double) a / b);
+            return a / b;
+        } catch (Exception ignore) {
+            System.out.printf("Server: DIV : Exception \n");
+            return 0;
+        }
+    }
+    public int mul(int a, int b) {
+        System.out.printf("Server: MUL : %d * %d = %d\n", a, b, a * b);
+        return a * b;
     }
 }
