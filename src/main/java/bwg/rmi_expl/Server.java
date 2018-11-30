@@ -42,7 +42,8 @@ public class Server implements MessageInterface {
     }
 
     public static void main(String args[]) {
-        String localhost    = "10.0.0.63";
+        //ip server
+        String localhost    = "10.8.5.192";
         String RMI_HOSTNAME = "java.rmi.server.hostname";
         System.setProperty(RMI_HOSTNAME, localhost);
         System.setSecurityManager(new RMISecurityManager());
